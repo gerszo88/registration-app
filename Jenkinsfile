@@ -7,10 +7,10 @@ pipeline {
   environment{
     APP_NAME = "register-app-pipeline"
     RELEASE = "1.0.0"
-    DOCKER_USER="gerszo88"
-    DOCKER_PASS='Dockerhub'
-    IMAGE_NAME="${DOCKER_USER}" + "/" + "${APP_NAME}"
-    IMAGE_TAG="${RELEASE}-${BUILD_NUMBER}"
+    DOCKER_USER = "gerszo88"
+    DOCKER_PASS = 'Dockerhub'
+    IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+    IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
   }
   stages{
     stage("Cleanup Workspace"){
@@ -52,11 +52,12 @@ pipeline {
     stage("Build and Push Image"){
       steps{
         script{
-          docker.withRegistry('',DOCKER_PASS){
-            docker_image=docker.build "${IMAGE_NAME}"
+          docker.withRegistry('',DOCKER_PASS) {
+            docker_image = docker.build "${IMAGE_NAME}"
           }
-          docker.withRegistry('',DOCKER_PASS){
-            docker_image.push("$IMAGE_TAG}")
+          
+          docker.withRegistry('',DOCKER_PASS) {
+            docker_image.push("${IMAGE_TAG}")
             docker_image.push('latest')
           }
         }
