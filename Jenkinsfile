@@ -54,7 +54,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry(registry,DOCKER_PASS) {
-                        docker_image = docker.build "${IMAGE_NAME}"
+                        docker_image = docker.build ("${IMAGE_NAME}")
                     }
 
                     docker.withRegistry(registry,DOCKER_PASS) {
