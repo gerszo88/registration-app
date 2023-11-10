@@ -53,7 +53,7 @@ pipeline {
       steps{
         script{
           docker.withRegistry('https://hub.docker.com/r/gerszo88/test',DOCKER_PASS) {
-            docker_image = docker.build "${IMAGE_NAME}"
+            docker_image = docker.build ("${IMAGE_NAME}")
           }
           
           docker.withRegistry('https://hub.docker.com/r/gerszo88/test',DOCKER_PASS) {
