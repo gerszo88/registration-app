@@ -53,11 +53,11 @@ pipeline {
     stage("Build and Push Image"){
       steps{
         script{
-            docker.withRegistry('https://hub.docker.com/r/gerszo88/test',DOCKER_PASS) {
+            docker.withRegistry(registry,DOCKER_PASS) {
             docker_image = docker.build ("my-image:${env.BUILD_ID}")
           }
           
-          docker.withRegistry( '' ,DOCKER_PASS) {
+          docker.withRegistry(registry,DOCKER_PASS) {
             docker_image.push()
           }
         }
