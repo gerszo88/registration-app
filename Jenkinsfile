@@ -11,6 +11,7 @@ pipeline {
     DOCKER_PASS = 'Dockerhub'
     IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
     IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+    registry = "gerszo88/test"
   }
   stages{
     stage("Cleanup Workspace"){
@@ -56,9 +57,8 @@ pipeline {
             docker_image = docker.build ("my-image:${env.BUILD_ID}")
           }
           
-          docker.withRegistry('https://hub.docker.com/r/gerszo88/test',DOCKER_PASS) {
-            docker_image.push("${IMAGE_TAG}")
-            docker_image.push('latest')
+          docker.withRegistry( '' ,DOCKER_PASS) {
+            docker_image.push()
           }
         }
       }
