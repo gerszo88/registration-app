@@ -50,18 +50,19 @@ pipeline {
         }
       }
     }
-    stage("Build and Push Image"){
-      steps{
-        script{
-            docker.withRegistry(registry,DOCKER_PASS) {
-            docker_image = docker.build ("my-image:${env.BUILD_ID}")
-          }
-          
-          docker.withRegistry(registry,DOCKER_PASS) {
-            docker_image.push()
-          }
-        }
+    stage("Build & Push Docker Image") {
+            steps {
+                script {
+                    docker.withRegistry('',DOCKER_PASS) {
+                        docker_image = docker.build "${IMAGE_NAME}"
+                    }
+
+                    docker.withRegistry('',DOCKER_PASS) {
+                        docker_image.push("${IMAGE_TAG}")
+                        docker_image.push('latest')
+                    }
+                }
+            }
       }
-    }
   }
 }
