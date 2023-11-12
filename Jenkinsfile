@@ -53,6 +53,7 @@ pipeline {
     stage("Build & Push Docker Image") {
             steps {
                 script {
+                  sh "whoami"
                     docker.withRegistry('https://registry.hub.docker.com',DOCKER_PASS) {
                         docker_image = docker.build ("${IMAGE_NAME}")
                     }
