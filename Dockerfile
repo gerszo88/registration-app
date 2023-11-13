@@ -1,4 +1,5 @@
 FROM tomcat:latest
+RUN ls
 COPY ./target/webapp.war /usr/local/tomcat/webapps
 
 #
