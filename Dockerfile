@@ -1,4 +1,6 @@
 FROM tomcat:latest
+WORKDIR /var/lib/jenkins/workspace/register-app-ci/webapp/target
+RUN ls
 COPY ./webapp.war /usr/local/tomcat/webapps
 
 #
