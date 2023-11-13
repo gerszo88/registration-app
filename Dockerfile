@@ -1,7 +1,7 @@
 FROM tomcat:latest
 RUN whoami
 RUN pwd
-WORKDIR /var/lib/jenkins/workspace/register-app-ci/webapp/target
+WORKDIR /var/lib/jenkins/workspace/register-app-ci/webapp/target/
 RUN ls
 COPY ./webapp.war /usr/local/tomcat/webapps
 
