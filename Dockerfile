@@ -1,7 +1,12 @@
-FROM tomcat:latest
-RUN ls
-
+FROM maven:3.8.7-openjdk-18-slim AS build
+ENV HOME=/usr/app
+RUN mkdir -p $HOME
+WORKDIR $HOME
+ADD . $HOME
+RUN --mount=type=cache,target=/root/.m2 mvn package
 #
-#RUN cp -R  /usr/local/tomcat/webapps.dist/*  /usr/local/tomcat/webapps
-#COPY /var/lib/jenkins/workspace/register-app-ci/webapp/target/webapp.war /usr/local/tomcat/webapps
-
+# Package stage
+#
+FROM tomcat:latest
+COPY --from=build /usr/app/server/target/*.jar  /usr/local/tomcat/common/lib
+COPY --from=build /usr/app/webapp/target/*.war /usr/local/tomcat/webapps
